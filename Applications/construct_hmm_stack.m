@@ -40,7 +40,7 @@ while contiIter == true
     i = i + 1;
     
     for inputI = 1 : length(name)
-        call_run_for_each_input(inputI, dataL)
+        call_run_for_each_input(inputI, dataL, folderDateString)
     end
     LL(i) = run_for_communication('newStack', dataL, folderDateString, 1, 'step', 0);
 
