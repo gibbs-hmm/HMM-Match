@@ -22,6 +22,11 @@ save('recordSummary_info.mat', 'inputNAME', 'beginNend')
 
 %% Run the profile-HMM algorithm
 
+% Set `datetime` string
+t = datetime;
+DateStringTest = datestr(t);
+folderDateString = strrep(DateStringTest,' ','_');
+
 cd code
 
 % Criteria of convergence
@@ -29,15 +34,15 @@ iterTol = 0.1;  %% Iteration stops if log likelihood does not increase larger th
 iterMax = 10;   %% Iteration stops if the number of iteration is larget than iterMax.
 
 contiIter = true;
-run_for_communication('newStack', dataL, date, 1, 'step', 0);
+run_for_communication('newStack', dataL, folderDateString, 1, 'step', 0);
 i = 0;
 while contiIter == true
     i = i + 1;
     
     for inputI = 1 : length(name)
-        call_run_for_each_input(inputI, dataL)
+        call_run_for_each_input(inputI, dataL, folderDateString)
     end
-    LL(i) = run_for_communication('newStack', dataL, date, 1, 'step', 0);
+    LL(i) = run_for_communication('newStack', dataL, folderDateString, 1, 'step', 0);
 
     if i ~= 1
         if abs(LL(i)-LL(i-1))/LL(i-1) < iterTol/100
